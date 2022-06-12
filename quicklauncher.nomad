@@ -13,18 +13,18 @@ job "quicklauncher" {
   parameterized {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
-    meta_optional = ["address", "token"]
+#     meta_optional = ["address", "token"]
     
   }
-  
+#   meta {
+#     address = var.nomad_address
+#     token   = var.nomad_token
+#   }
   
 
   group "run-main-job" {
 
-    meta {
-      address = var.nomad_address
-      token   = var.nomad_token
-    }
+    
     task "run-main-job" {
       driver = "raw_exec"
 
