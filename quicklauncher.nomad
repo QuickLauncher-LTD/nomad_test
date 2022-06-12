@@ -1,5 +1,5 @@
 job "quicklauncher" {
-  datacenters = ["dc1"]
+  datacenters = ["dc-ucmp"]
   type = "batch"
 
   parameterized {
