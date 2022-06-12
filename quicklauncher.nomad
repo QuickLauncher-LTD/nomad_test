@@ -17,13 +17,14 @@ job "quicklauncher" {
     
   }
   
-  meta {
-    address = var.nomad_address
-    token   = var.nomad_token
-  }
+  
 
   group "run-main-job" {
 
+    meta {
+      address = var.nomad_address
+      token   = var.nomad_token
+    }
     task "run-main-job" {
       driver = "raw_exec"
 
