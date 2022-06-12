@@ -11,8 +11,9 @@ job "quicklauncher" {
   type = "batch"
 
   parameterized {
-    payload       = "required"
+    payload       = "forbidden"
     meta_required = ["serviceID", "port"]
+    meta_optional = ["address", "token"]
   }
   
   meta {
