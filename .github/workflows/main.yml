@@ -1,0 +1,43 @@
+name: DEV - Deploy to Nomad Cluster
+
+on:
+  push:
+    #branches: [ develop ]
+    
+env:
+  # Organization Secrets
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  NOMAD_CLUSTER: ${{ secrets.NOMAD_TEST_ADDRESS }}
+  NOMAD_TOKEN: ${{ secrets.NOMAD_TEST_TOKEN }}
+
+  APP_NAME:  quick-launcher       # Application 이름. Image TAG Prefix로 사용 됨
+  AWS_REGION: ap-northeast-2       # AWS EKS & ECR이 위치한 AWS Region
+  DEPLOY_ENV : dev
+  
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v1
+        
+  deploy:
+    name: Deploy to Nomad
+    runs-on: ubuntu-latest
+    
+    steps:    
+    # 소스 가져오기
+    - name: Checkout
+      uses: actions/checkout@v2      
+      
+    # 배포를 위한 nomad 설정
+    - name: Deploy to Nomad
+      id: deploy-nomad
+      run: |
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install nomad
+        nomad job run -address=${{ env.NOMAD_CLUSTER }} -token=${{ env.NOMAD_TOKEN }} ./quicklauncher.nomad
