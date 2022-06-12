@@ -28,7 +28,7 @@ job "quicklauncher" {
       config {
         command = "nomad"
         # arguments
-        args = ["job", "run", "-address={{ env "NOMAD_META_nomad_address" }}", "-token={{ env "NOMAD_META_nomad_token" }}", "${NOMAD_TASK_DIR}/room.job" ]
+        args = ["job", "run", "-address={{ env "NOMAD_META_address" }}", "-token={{ env "NOMAD_META_token" }}", "${NOMAD_TASK_DIR}/room.job" ]
       }
       template {
         data = <<EOH
