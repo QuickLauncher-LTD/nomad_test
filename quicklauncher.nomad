@@ -3,7 +3,7 @@ variable "nomad_address" {
 }
 
 variable "nomad_token" {
-  type = string 
+  type = string
 }
 
 job "quicklauncher" {
@@ -13,25 +13,26 @@ job "quicklauncher" {
   parameterized {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
-#     meta_optional = ["address", "token"]
-    
+    meta_optional = ["address", "token"]
+
   }
-#   meta {
-#     address = var.nomad_address
-#     token   = var.nomad_token
-#   }
-  
+   meta {
+     address = var.nomad_address
+     token   = var.nomad_token
+   }
 
   group "run-main-job" {
-
-    
     task "run-main-job" {
       driver = "raw_exec"
 
       config {
         command = "nomad"
         # arguments
-        args = ["job", "run", "-address={{ env "NOMAD_META_address" }}", "-token={{ env "NOMAD_META_token" }}", "${NOMAD_TASK_DIR}/room.job" ]
+        args = ["job", "run",
+                       "-address", "${NOMAD_META_address}",
+                       "-token", "${NOMAD_META_token}",
+                       "${NOMAD_TASK_DIR}/room.job"
+               ]
       }
       template {
         data = <<EOH
