@@ -11,14 +11,14 @@ job "quicklauncher" {
   type = "batch"
 
   parameterized {
-    payload       = "forbidden"
+    payload       = "required"
     meta_required = ["serviceID", "port"]
   }
   
-#   meta {
-#     address = var.nomad_address
-#     token   = var.nomad_token
-#   }
+  meta {
+    address = var.nomad_address
+    token   = var.nomad_token
+  }
 
   group "run-main-job" {
 
@@ -28,7 +28,7 @@ job "quicklauncher" {
       config {
         command = "nomad"
         # arguments
-        args = ["job", "run", "-address=var.nomad_address", "-token=var.nomad_token", "${NOMAD_TASK_DIR}/room.job" ]
+        args = ["job", "run", "-address={{ env "NOMAD_META_nomad_address" }}", "-token={{ env "NOMAD_META_nomad_token" }}", "${NOMAD_TASK_DIR}/room.job" ]
       }
       template {
         data = <<EOH
