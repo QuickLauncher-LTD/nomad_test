@@ -14,6 +14,7 @@ job "quicklauncher" {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
     meta_optional = ["address", "token"]
+    
   }
   
   meta {
