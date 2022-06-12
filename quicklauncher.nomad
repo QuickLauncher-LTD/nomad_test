@@ -1,12 +1,3 @@
-variable "nomad_address" {
-    type = string
-}
-
-
-variable "nomad_token" {
-    type = string
-}
-
 job "quicklauncher" {
   datacenters = ["dc1"]
   type = "batch"
@@ -24,7 +15,7 @@ job "quicklauncher" {
       config {
         command = "nomad"
         # arguments
-        args = ["job", "run", "-token=var.nomad_token", "-address=var.nomad_address", "${NOMAD_TASK_DIR}/room.job" ]
+        args = ["job", "run", "${NOMAD_TASK_DIR}/room.job" ]
       }
       template {
         data = <<EOH
