@@ -1,7 +1,7 @@
 locals {
     autoscaler_ver = "0.3.3"
-#     address = var.nomad_address
-#     token  = var.nomad_token
+    address = var.nomad_address
+    token  = var.nomad_token
 }
 variable "nomad_address" {
   type = string
@@ -19,10 +19,10 @@ job "autoscaler" {
 #     change_signal = "SIGUSR1"
 #   }
     
-  meta {
-    address = var.nomad_address
-    token  = var.nomad_token   
-  }
+#   meta {
+#     address = var.nomad_address
+#     token  = var.nomad_token   
+#   }
 
   #constraint {
   #  attribute = meta.type
@@ -65,8 +65,8 @@ job "autoscaler" {
       template {
         data        = <<EOF
 nomad {
-  address = {{ env "NOMAD_META_address" }}  #Adding nomad server addresss
-  token = {{ env "NOMAD_META_token" }}
+  address = ${local.address}  #Adding nomad server addresss
+  token = ${local.token}
 }
 
 apm "nomad-apm" {
