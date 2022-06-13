@@ -33,4 +33,4 @@ jobs:
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install nomad
         nomad job run -address=${{ env.NOMAD_CLUSTER }} -token=${{ env.NOMAD_TOKEN }} -var=nomad_address=${{ env.NOMAD_CLUSTER }} -var=nomad_token=${{ env.NOMAD_TOKEN }} ./nomad/quicklauncher.nomad
-        nomad job run -address=${{ env.NOMAD_CLUSTER }} -token=${{ env.NOMAD_TOKEN }} -var=nomad_address=${{ env.NOMAD_CLUSTER }} -var=nomad_token=${{ env.NOMAD_TOKEN }} ./nomad/autoscaler.nomad
+        nomad job run -address=${{ env.NOMAD_CLUSTER }} -token=${{ env.NOMAD_TOKEN }} -var=nomad_token=${{ env.NOMAD_TOKEN }} ./nomad/autoscaler.nomad
