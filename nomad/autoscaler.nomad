@@ -1,11 +1,8 @@
 locals {
     autoscaler_ver = "0.3.3"
-    address = var.nomad_address
     token  = var.nomad_token
 }
-variable "nomad_address" {
-  type = string
-}
+
 variable "nomad_token" {
   type = string
 }
@@ -18,17 +15,7 @@ job "autoscaler" {
 #     change_mode   = "signal"
 #     change_signal = "SIGUSR1"
 #   }
-    
-#   meta {
-#     address = var.nomad_address
-#     token  = var.nomad_token   
-#   }
-
-  #constraint {
-  #  attribute = meta.type
-  #  value     = "server"
-  #}
-
+  
   group "autoscaler" {
     count = 1
     scaling {
@@ -65,7 +52,7 @@ job "autoscaler" {
       template {
         data        = <<EOF
 nomad {
-  address = "${local.address}"  #Adding nomad server addresss
+  address = "http://{{env "attr.unique.network.ip-address" }}:4646"  #Adding nomad server addresss
   token = "${local.token}"
 }
 
