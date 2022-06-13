@@ -65,8 +65,8 @@ job "autoscaler" {
       template {
         data        = <<EOF
 nomad {
-  address = ${local.address}  #Adding nomad server addresss
-  token = ${local.token}
+  address = "${local.address}"  #Adding nomad server addresss
+  token = "${local.token}"
 }
 
 apm "nomad-apm" {
