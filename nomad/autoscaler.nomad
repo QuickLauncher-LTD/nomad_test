@@ -1,7 +1,9 @@
 locals {
     autoscaler_ver = "0.3.3"
 }
-
+variable "nomad_address" {
+  type = string
+}
 variable "nomad_token" {
   type = string
 }
