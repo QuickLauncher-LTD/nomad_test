@@ -16,6 +16,11 @@ job "autoscaler" {
     change_mode   = "signal"
     change_signal = "SIGUSR1"
   }
+    
+  meta {
+    address = var.nomad_address
+    token.  = var.nomad_token   
+  }
 
   #constraint {
   #  attribute = meta.type
@@ -58,8 +63,8 @@ job "autoscaler" {
       template {
         data        = <<EOF
 nomad {
-  address = var.nomad_address  #Adding nomad server addresss
-  token = var.nomad_token
+  address = {{ env "NOMAD_META_address" }}  #Adding nomad server addresss
+  token = {{ env "NOMAD_META_token" }}
 }
 
 apm "nomad-apm" {
