@@ -1,6 +1,7 @@
 locals {
     autoscaler_ver = "0.3.3"
-    
+    address = var.nomad_address
+    token  = var.nomad_token
 }
 variable "nomad_address" {
   type = string
@@ -12,16 +13,16 @@ variable "nomad_token" {
 job "autoscaler" {
   datacenters = ["dc-ucmp"]
 
-  vault {
-    policies = ["admin"]
-    change_mode   = "signal"
-    change_signal = "SIGUSR1"
-  }
+#   vault {
+#     policies = ["admin"]
+#     change_mode   = "signal"
+#     change_signal = "SIGUSR1"
+#   }
     
-  meta {
-    address = var.nomad_address
-    token  = var.nomad_token   
-  }
+#   meta {
+#     address = var.nomad_address
+#     token  = var.nomad_token   
+#   }
 
   #constraint {
   #  attribute = meta.type
