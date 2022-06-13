@@ -1,5 +1,6 @@
 locals {
     autoscaler_ver = "0.3.3"
+    
 }
 variable "nomad_address" {
   type = string
@@ -19,7 +20,7 @@ job "autoscaler" {
     
   meta {
     address = var.nomad_address
-    token.  = var.nomad_token   
+    token  = var.nomad_token   
   }
 
   #constraint {
