@@ -63,7 +63,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     task "server" {
       driver = "docker"
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/test3_b0srmnx9:1c8638ef"
+        image = "public.ecr.aws/nginx/nginx"
         ports = ["http"]
       }
     }
