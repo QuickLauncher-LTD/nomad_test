@@ -44,7 +44,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       mode = "bridge"
       port "http" {
         static = "{{ env "NOMAD_META_port" }}"
-        to = 80
+        to = 5000
       }
     }
     service {
@@ -63,7 +63,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     task "server" {
       driver = "docker"
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/asdopdsa_f1j6sx0m:35fc11c2"
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/test3_b0srmnx9:1c8638ef"
         ports = ["http"]
       }
     }
