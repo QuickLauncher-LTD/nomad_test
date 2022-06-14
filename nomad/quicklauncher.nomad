@@ -50,9 +50,9 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     service {
       name = "{{ env "NOMAD_META_serviceID" }}"
       port = "http"
-      connect {
-        sidecar_service {}
-      }
+#       connect {
+#         sidecar_service {}
+#       }
       check {
         type     = "http"
         path     = "/"
