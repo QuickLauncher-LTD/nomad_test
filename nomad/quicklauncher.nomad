@@ -51,14 +51,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       name = "{{ env "NOMAD_META_serviceID" }}"
       port = "http"
        connect {
-         sidecar_service {
-            proxy {
-              upstreams {
-                destination_name = "{{ env "NOMAD_META_serviceID" }}"
-                local_bind_port  = 5000
-              }
-            }
-          }
+         sidecar_service {}
        }
       check {
         type     = "http"
