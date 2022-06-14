@@ -38,7 +38,7 @@ job "quicklauncher" {
 #####################
 job "{{ env "NOMAD_META_serviceID" }}" {
   datacenters = ["dc-quicklauncher"]
-  group "ql_healthcheck_sample" {
+  group "quicklauncher" {
     count = 1
     network {
       mode = "bridge"
@@ -48,7 +48,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       }
     }
     service {
-      name = "quicklauncer-service"
+      name = "{{ env "NOMAD_META_serviceID" }}"
       port = "http"
       connect {
         sidecar_service {}
