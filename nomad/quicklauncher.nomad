@@ -16,7 +16,7 @@ job "quicklauncher" {
   type = "batch"
 
   vault {
-    policies = ["root"]
+    policies = ["nomad-dev"]
     change_mode   = "signal"
     change_signal = "SIGUSR1"
   }
