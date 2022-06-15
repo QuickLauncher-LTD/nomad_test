@@ -68,6 +68,36 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       }
     }
   }
+  
+  group "downstream" {
+    task "downstream" {
+      driver = "docker"
+
+      config {
+        # It is just only curl that I need.
+        image   = "node"
+        command = "tail"
+        args    = ["-f", "/dev/null"]
+      }
+    }
+
+    network {
+      mode = "bridge"
+    }
+
+    service {
+      connect {
+        sidecar_service {
+          proxy {
+            upstreams {
+              destination_name = "quicklauncher"
+              local_bind_port  = 5000
+            }
+          }
+        }
+      }
+    }
+  }
 }
 EOH
     destination = "local/room.job"
