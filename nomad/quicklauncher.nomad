@@ -40,7 +40,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
   datacenters = ["dc-quicklauncher"]
   group "quicklauncher" {
     count = 1
-    sacling {
+    scaling {
       min = 1
       max = 30
     }
@@ -64,7 +64,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     task "server" {
       driver = "docker"
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/test4_qsdddpmq:10e14cf5"
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/tototo_k3pjpoql:3574513c"
         ports = ["http"]
       }
     }
