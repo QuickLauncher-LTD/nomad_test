@@ -54,7 +54,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
          sidecar_service {
            proxy {
              upstreams {
-               destination_name = "count-api"
+               destination_name = "quicklauncher"
                local_bind_port = "{{ env "NOMAD_META_port" }}"
              }
            }
