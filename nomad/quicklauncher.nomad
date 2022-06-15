@@ -48,7 +48,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       }
     }
     service {
-      name = "{{ env "NOMAD_META_serviceID" }}"
+      name = replace("{{ env "NOMAD_META_serviceID" }}", "_", "-")
       port = "http"
       check {
         type     = "http"
