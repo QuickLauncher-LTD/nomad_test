@@ -70,13 +70,13 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     task "server" {
       driver = "docker"
       template {
-        data = <<EOH
+        data = <<EOF
       {{ with secret "ucmp-kv2/data/prod/ucmp_env" }}
 DB_USER={{ .Data.data.rds_username }}
 DB_PASS={{ .Data.data.rds_password }}
 DB_URL={{ .Data.data.rds_url }}
       {{ end }}
-      EOH
+      EOF
         destination   = "${NOMAD_SECRETS_DIR}/dbinfo.env"
         env           = true   #cloud not resolve placeholder issue  ${DB_USER}
         change_mode   = "restart"
