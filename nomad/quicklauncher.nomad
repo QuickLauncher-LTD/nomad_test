@@ -51,7 +51,14 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       name = "{{ env "NOMAD_META_serviceID" }}"
       port = "http"
        connect {
-         sidecar_service {}
+         sidecar_service {
+           proxy {
+             upstreams {
+               destination_name = "count-api"
+               local_bind_port = "{{ env "NOMAD_META_port" }}"
+             }
+           }
+         }
        }
       check {
         type     = "http"
@@ -65,36 +72,6 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       config {
         image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/test4_qsdddpmq:10e14cf5"
         ports = ["http"]
-      }
-    }
-  }
-  
-  group "downstream" {
-    task "downstream" {
-      driver = "docker"
-
-      config {
-        # It is just only curl that I need.
-        image   = "node"
-        command = "tail"
-        args    = ["-f", "/dev/null"]
-      }
-    }
-
-    network {
-      mode = "bridge"
-    }
-
-    service {
-      connect {
-        sidecar_service {
-          proxy {
-            upstreams {
-              destination_name = "quicklauncher"
-              local_bind_port  = 5000
-            }
-          }
-        }
       }
     }
   }
