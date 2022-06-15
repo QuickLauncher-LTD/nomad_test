@@ -40,6 +40,10 @@ job "{{ env "NOMAD_META_serviceID" }}" {
   datacenters = ["dc-quicklauncher"]
   group "quicklauncher" {
     count = 1
+    sacling {
+      min = 1
+      max = 30
+    }
     network {
       mode = "bridge"
       port "http" {
