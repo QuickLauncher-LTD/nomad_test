@@ -9,20 +9,10 @@ variable "nomad_token" {
 
 job "autoscaler" {
   datacenters = ["dc-ucmp"]
-
-#   vault {
-#     policies = ["admin"]
-#     change_mode   = "signal"
-#     change_signal = "SIGUSR1"
-#   }
   
   group "autoscaler" {
     count = 1
-    scaling {
-      min = 0
-      max = 100
-    }
-
+    
     network {
       port "http" {}
     }
@@ -101,7 +91,7 @@ scaling "cluster_policy_nomadclient" {
       dry-run             = "false"
       aws_asg_name        = "nomad_client_autoscaler"  # aws Autoscaling 그룹의 이름과 동일
       node_class          = "quicklauncher_node" # Nomad Client에 node_class속성 추가
-      node_drain_deadline = "7m"
+      node_drain_deadline = "3m"
       node_purge          = "true"
     }
   }
