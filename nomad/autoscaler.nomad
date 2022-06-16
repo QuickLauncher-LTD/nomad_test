@@ -82,7 +82,7 @@ EOF
 scaling "cluster_policy_nomadclient" {
   enabled = true
   min     = 1
-  max     = 100
+  max     = 30
   
   policy {
     cooldown            = "5m"
