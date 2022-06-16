@@ -1,9 +1,17 @@
 locals {
     autoscaler_ver = "0.3.3"
     token  = var.nomad_token
+    aws_asg_name = var.aws_asg_name
+    node_class   = var.node_class
 }
 
 variable "nomad_token" {
+  type = string
+}
+variable "aws_asg_name" {
+  type = string
+}
+variable "node_class" {
   type = string
 }
 
@@ -89,8 +97,8 @@ scaling "cluster_policy_nomadclient" {
     }
     target "aws-asg" {
       dry-run             = "false"
-      aws_asg_name        = "nomad_client_autoscaler"  # aws Autoscaling 그룹의 이름과 동일
-      node_class          = "quicklauncher_node" # Nomad Client에 node_class속성 추가
+      aws_asg_name        = "${local.aws_asg_name}"  # aws Autoscaling 그룹의 이름과 동일
+      node_class          = "${local.node_class}" # Nomad Client에 node_class속성 추가
       node_drain_deadline = "3m"
       node_purge          = "true"
     }
