@@ -11,6 +11,8 @@ env:
   NOMAD_CLUSTER: ${{ secrets.NOMAD_TEST_ADDRESS }}
   NOMAD_TOKEN: ${{ secrets.NOMAD_TEST_TOKEN }}
 
+  AWS_ASG_NAME: nomad_client_autoscaler
+  NODE_CLASS: quicklauncher_node
   APP_NAME:  quick-launcher       # Application 이름. Image TAG Prefix로 사용 됨
   AWS_REGION: ap-northeast-2       # AWS EKS & ECR이 위치한 AWS Region
   DEPLOY_ENV : dev
