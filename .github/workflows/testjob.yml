@@ -1,8 +1,15 @@
 name: DEV - Deploy Test Job 
 
 on:
-  push:
-    #branches: [ develop ]
+  workflow_dispatch:
+    inputs:
+      developer:
+        description: 'Trigger'
+        required: true
+        default: 'nomadjob'
+        type: choice
+        options:
+          - nomadjob
     
 env:
   # Organization Secrets
