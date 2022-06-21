@@ -31,7 +31,7 @@ job "testjob" {
       
       template {
         data = <<EOH
-      {{ with secret "quicklauncher-kv2/data/dev/test" }}
+      {{ with secret "quicklauncher-kv2/data/dev/database_env/test" }}
 TEST={{ .Data.data.test }}
       {{ end }}
       EOH
