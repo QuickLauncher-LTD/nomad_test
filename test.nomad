@@ -35,7 +35,7 @@ TEST={{ .Data.data.test }}
     
       template {
         data = <<EOH
-      {{ with secret "quicklauncher-kv2/data/prod/ucmp_env" }}
+      {{ with secret "ucmp-kv2/data/prod/ucmp_env" }}
 TESTPW={{ .Data.data.rds_password }}
       {{ end }}
       EOH
