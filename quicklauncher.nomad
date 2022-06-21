@@ -1,59 +1,17 @@
-variable "nomad_address" {
-  type = string 
-}
-
-variable "nomad_token" {
-  type = string
-}
-
-job "quicklauncher" {
-  datacenters = ["dc-ucmp"]
-  type = "batch"
-
-  parameterized {
-    payload       = "forbidden"
-    meta_required = ["serviceID", "port"]
-    meta_optional = ["address", "token"]
-
-  }
-   meta {
-     address = var.nomad_address
-     token   = var.nomad_token
-   }
-
-  group "run-main-job" {
-    task "run-main-job" {
-      driver = "raw_exec"
-
-      config {
-        command = "nomad"
-        # arguments
-        args = ["job", "run",
-                       "-address", "${NOMAD_META_address}",
-                       "-token", "${NOMAD_META_token}",
-                       "${NOMAD_TASK_DIR}/room.job"
-               ]
-      }
-      template {
-        data = <<EOH
-#####################
-job "{{ env "NOMAD_META_serviceID" }}" {
+job "testjob" {
   datacenters = ["dc-quicklauncher"]
-  group "ql_healthcheck_sample" {
+  group "test" {
     count = 1
     network {
       mode = "bridge"
       port "http" {
-        static = "{{ env "NOMAD_META_port" }}"
         to = 80
       }
     }
     service {
-      name = "quicklauncer-service"
+      name = "test-service"
       port = "http"
-      connect {
-        sidecar_service {}
-      }
+      
       check {
         type     = "http"
         path     = "/"
@@ -63,15 +21,33 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     }
     task "server" {
       driver = "docker"
+      
+      template {
+        data = <<EOH
+      {{ with secret "quicklauncher-kv2/data/dev/database_env" }}
+TEST={{ .Data.data.test }}
+      {{ end }}
+      EOH
+        destination   = "${NOMAD_SECRETS_DIR}/quicktest.env"
+        env           = true   #cloud not resolve placeholder issue  ${DB_USER}
+        change_mode   = "restart"
+      }
+    
+      template {
+        data = <<EOH
+      {{ with secret "quicklauncher-kv2/data/prod/ucmp_env" }}
+TESTPW={{ .Data.data.rds_password }}
+      {{ end }}
+      EOH
+        destination   = "${NOMAD_SECRETS_DIR}/ucmptest.env"
+        env           = true   #cloud not resolve placeholder issue  ${DB_USER}
+        change_mode   = "restart"
+      }
+    
+    
       config {
         image = "nginx:latest"
         ports = ["http"]
-      }
-    }
-  }
-}
-EOH
-    destination = "local/room.job"
       }
     }
   }
