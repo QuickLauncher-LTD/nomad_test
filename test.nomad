@@ -8,6 +8,13 @@ job "testjob" {
         to = 80
       }
     }
+    
+    vault {
+      policies = ["nomad-dev"]
+      change_mode   = "signal"
+      change_signal = "SIGUSR1"
+    }
+    
     service {
       name = "test-service"
       port = "http"
