@@ -1,1 +1,29 @@
+name: DEV - Deploy Test Job 
 
+on:
+  push:
+    #branches: [ develop ]
+    
+env:
+  # Organization Secrets
+  NOMAD_CLUSTER: ${{ secrets.NOMAD_TEST_ADDRESS }}
+  NOMAD_TOKEN: ${{ secrets.NOMAD_TEST_TOKEN }}
+  
+jobs:
+  deploy:
+    name: Deploy to Nomad
+    runs-on: ubuntu-latest
+    
+    steps:    
+    # 소스 가져오기
+    - name: Checkout
+      uses: actions/checkout@v2      
+      
+    # 배포를 위한 nomad 설정
+    - name: Deploy to Nomad
+      id: deploy-nomad
+      run: |
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install nomad
+        nomad job run -address=${{ env.NOMAD_CLUSTER }} -token=${{ env.NOMAD_TOKEN }} ./quicklauncher.nomad
