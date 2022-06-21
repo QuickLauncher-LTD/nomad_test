@@ -1,8 +1,15 @@
 name: DEV - Deploy to Nomad Cluster
 
 on:
-  push:
-    #branches: [ develop ]
+  workflow_dispatch:
+    inputs:
+      developer:
+        description: 'Trigger'
+        required: true
+        default: 'quicklauncher'
+        type: choice
+        options:
+          - quicklauncher
     
 env:
   # Organization Secrets
