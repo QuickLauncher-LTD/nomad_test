@@ -83,7 +83,7 @@ DB_URL={{ .Data.data.rds_url }}
       }
     
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/tototo_k3pjpoql:3574513c"
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:nginx-sample-image"
         ports = ["http"]
       }
     }
