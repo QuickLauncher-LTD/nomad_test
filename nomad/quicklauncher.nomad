@@ -54,7 +54,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       mode = "bridge"
       port "http" {
         static = "{{ env "NOMAD_META_port" }}"
-        to = 5000
+        to = 80
       }
     }
     service {
