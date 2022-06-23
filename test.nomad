@@ -2,6 +2,12 @@ job "testjob2" {
   datacenters = ["dc-quicklauncher"]
   group "test" {
     count = 1
+    
+    scaling {
+      min = 1
+      max = 30
+    }
+    
     network {
       mode = "bridge"
       port "http" {
@@ -53,7 +59,7 @@ TESTPW={{ .Data.data.rds_password }}
     
     
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:django"
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/dev-ecrtest_06pg32o4-7c596d49"
         ports = ["http"]
       }
     }
