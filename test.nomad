@@ -5,7 +5,7 @@ job "testjob2" {
     network {
       mode = "bridge"
       port "http" {
-        to = 80
+        to = 5000
       }
     }
     
