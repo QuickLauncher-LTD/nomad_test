@@ -22,7 +22,7 @@ job "testjob" {
     }
     
     service {
-      name = replace('quicklauncher-975559_QL_SVC_5', '_', '-')
+      name = replace("quicklauncher-975559_QL_SVC_5", "_", "-")
       port = "http"
       
       check {
