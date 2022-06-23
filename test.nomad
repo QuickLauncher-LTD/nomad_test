@@ -1,4 +1,4 @@
-job "testjob2" {
+job "testjob" {
   datacenters = ["dc-quicklauncher"]
   group "test" {
     count = 1
