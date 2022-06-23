@@ -59,7 +59,7 @@ TESTPW={{ .Data.data.rds_password }}
     
     
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:dev-cicdtest_fc3gdn9g-98dfc482"
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:dev-evaltest2_853ioau5-79b2ea7f"
         ports = ["http"]
       }
     }
