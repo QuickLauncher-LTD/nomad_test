@@ -69,6 +69,12 @@ job "{{ env "NOMAD_META_serviceID" }}" {
     }
     task "server" {
       driver = "docker"
+      
+      resources {
+       cpu    = 250
+       memory = 500
+     }
+      
       template {
         data = <<EOF
       {{ with secret "ucmp-kv2/data/prod/ucmp_env" }}
