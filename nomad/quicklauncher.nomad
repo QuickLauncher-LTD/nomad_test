@@ -29,6 +29,7 @@ job "quicklauncher" {
   group "run-main-job" {
     task "run-main-job" {
       driver = "raw_exec"
+      constraint = nil
 
       config {
         command = "nomad"
