@@ -8,7 +8,7 @@ variable "nomad_token" {
 
 variable "ecr_tag" {
   type = string
-  default = ["dev-nginx-sample"]
+  default = "dev-nginx-sample"
 }
 
 locals {
