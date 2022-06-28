@@ -25,9 +25,9 @@ job "quicklauncher" {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
     meta_optional = ["ecrTag"]
-    meta {
-      ecrTag = "dev-nginx-sample"
-    }
+  }
+  meta {
+    ecrTag = "dev-nginx-sample"
   }
    
   group "run-main-job" {
