@@ -29,8 +29,6 @@ job "quicklauncher" {
       ecrTag = "dev-nginx-sample"
     }
   }
-
-  }
    
   group "run-main-job" {
     task "run-main-job" {
@@ -95,7 +93,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
 #       }
     
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:{{ env "NOMAD_META_ecrTag" }}""
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:{{ env "NOMAD_META_ecrTag" }}"
         ports = ["http"]
       }
     }
