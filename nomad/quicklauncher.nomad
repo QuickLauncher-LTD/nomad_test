@@ -6,7 +6,7 @@ variable "nomad_token" {
   type = string
 }
 
-variable "ecr-tag" {
+variable "ecr_tag" {
   type = string
   default = ["dev-nginx-sample"]
 }
