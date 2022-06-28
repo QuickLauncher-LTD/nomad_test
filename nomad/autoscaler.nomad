@@ -100,7 +100,7 @@ scaling "cluster_policy_nomadclient" {
       aws_asg_name        = "${local.aws_asg_name}"  # aws Autoscaling 그룹의 이름과 동일
       node_class          = "${local.node_class}" # Nomad Client에 node_class속성 추가
       node_drain_deadline = "3m"
-      node_purge          = "true"
+      node_purge          = "false"
     }
   }
 }
