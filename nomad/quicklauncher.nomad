@@ -6,15 +6,9 @@ variable "nomad_token" {
   type = string
 }
 
-variable "ecr_tag" {
-  type = string
-  default = "dev-nginx-sample"
-}
-
 locals {
   address = var.nomad_address
   token   = var.nomad_token
-  tag     = var.ecr_tag
 }
 
 job "quicklauncher" {
@@ -30,6 +24,12 @@ job "quicklauncher" {
   parameterized {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
+    meta_optional = ["ecrTag"]
+    meta {
+      ecrTag = "dev-nginx-sample"
+    }
+  }
+
   }
    
   group "run-main-job" {
@@ -95,7 +95,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
 #       }
     
       config {
-        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:"${local.tag}""
+        image = "868771833856.dkr.ecr.ap-northeast-2.amazonaws.com/ecr-dev-quicklauncher:{{ env "NOMAD_META_ecrTag" }}""
         ports = ["http"]
       }
     }
