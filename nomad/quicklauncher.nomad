@@ -27,7 +27,7 @@ job "quicklauncher" {
     meta_optional = ["ecrTag", "toPort"]
   }
   meta {
-    ecrTag = "dev-nginx-sample"
+    ecrTag = "nginx-sample-image"
     toPort = "80"
   }
    
