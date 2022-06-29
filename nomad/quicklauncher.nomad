@@ -24,10 +24,11 @@ job "quicklauncher" {
   parameterized {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
-    meta_optional = ["ecrTag"]
+    meta_optional = ["ecrTag", "toPort"]
   }
   meta {
     ecrTag = "dev-nginx-sample"
+    toPort = "80"
   }
    
   group "run-main-job" {
@@ -58,7 +59,7 @@ job "{{ env "NOMAD_META_serviceID" }}" {
       mode = "bridge"
       port "http" {
         static = "{{ env "NOMAD_META_port" }}"
-        to = 80
+        to = "{{ env "NOMAD_META_toPort" }}"
       }
     }
     service {
