@@ -15,11 +15,11 @@ job "quicklauncher" {
   datacenters = ["dc-ucmp"]
   type = "batch"
 
-  vault {
-    policies = ["nomad-dev"]
-    change_mode   = "signal"
-    change_signal = "SIGUSR1"
-  }
+#   vault {
+#     policies = ["nomad-dev"]
+#     change_mode   = "signal"
+#     change_signal = "SIGUSR1"
+#   }
   
   parameterized {
     payload       = "forbidden"
