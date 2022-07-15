@@ -50,7 +50,7 @@ job "quicklauncher" {
 #####################
 job "{{ env "NOMAD_META_serviceID" }}" {
   datacenters = ["dc-quicklauncher"]
-  namespace = "{{ env "NOMAD_META_toPort" }}"
+  namespace = "{{ env "NOMAD_META_namespace" }}"
   group "quicklauncher" {
     count = 1
     scaling {
