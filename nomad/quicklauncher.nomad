@@ -24,11 +24,12 @@ job "quicklauncher" {
   parameterized {
     payload       = "forbidden"
     meta_required = ["serviceID", "port"]
-    meta_optional = ["ecrTag", "toPort"]
+    meta_optional = ["ecrTag", "toPort", "namespace"]
   }
   meta {
     ecrTag = "nginx-sample-image"
     toPort = "80"
+    namespace = "default"
   }
    
   group "run-main-job" {
@@ -49,6 +50,7 @@ job "quicklauncher" {
 #####################
 job "{{ env "NOMAD_META_serviceID" }}" {
   datacenters = ["dc-quicklauncher"]
+  namespace = "{{ env "NOMAD_META_toPort" }}"
   group "quicklauncher" {
     count = 1
     scaling {
